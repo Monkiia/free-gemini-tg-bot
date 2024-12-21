@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  telegram-bot-${BOT_NAME}:
+    build: .
+    container_name: telegram-bot-${BOT_NAME}
+    volumes:
+      - ./config/${BOT_NAME}:/app/config
+    environment:
+      - ENV_FILE=/app/config/.env
+      - PYTHONPATH=/app
+    restart: unless-stopped 
