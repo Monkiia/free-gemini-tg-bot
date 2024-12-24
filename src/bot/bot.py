@@ -6,6 +6,7 @@ from telegram.ext import Application, MessageHandler, filters, ContextTypes, Com
 from telegram import Update
 from telegram.error import TimedOut, NetworkError
 from .config import Config
+from .prompts import CHAT_PROMPT
 
 class ChatBot:
     def __init__(self):
@@ -100,7 +101,8 @@ class ChatBot:
                     return
                 message_text = actual_message
             
-            prompt = "你是一个友好的群聊助手。请用简短的方式回复，尽量控制在100字以内。\n\n用户消息：" + message_text
+            # 使用格式化的prompt
+            prompt = CHAT_PROMPT.format(message=message_text)
             response = self.model.generate_content(prompt)
             
             # 发送回复
