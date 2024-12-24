@@ -23,7 +23,7 @@ class ChatBot:
         
         # 初始化 Gemini
         genai.configure(api_key=Config.GEMINI_API_KEY)
-        self.model = genai.GenerativeModel('gemini-pro')
+        self.model = genai.GenerativeModel('gemini-2.0-flash-exp')
         
         # 注册消息处理器
         print("Registering handlers...")
