@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# 检查 Docker 是否运行
+if ! docker info > /dev/null 2>&1; then
+    echo "错误: Docker 未运行，请先启动 Docker"
+    exit 1
+fi
+
 # 检查是否提供了bot名称作为参数
 if [ -z "$1" ]; then
     echo "请提供bot名称作为参数"
@@ -34,7 +40,24 @@ export BOT_NAME
 
 # 构建并启动容器
 echo "正在启动 bot: ${BOT_NAME}..."
-docker-compose up --build -d
 
-echo "Bot ${BOT_NAME} 已启动！"
-echo "查看日志请使用: docker-compose logs -f" 
+# 显示更多调试信息
+echo "开始构建镜像..."
+docker-compose build --no-cache
+
+echo "启动容器..."
+docker-compose up -d
+
+# 检查容器状态
+echo "检查容器状态..."
+docker-compose ps
+
+# 显示运行中的容器
+echo "所有运行中的容器："
+docker ps
+
+echo "查看容器日志..."
+docker-compose logs
+
+echo "Bot ${BOT_NAME} 启动流程完成！"
+echo "使用以下命令查看日志: docker-compose logs -f" 

@@ -2,12 +2,15 @@ version: '3.8'
 
 services:
   telegram-bot:
-    build: .
     container_name: telegram-bot-${BOT_NAME}
+    build: .
     volumes:
       - ./config/${BOT_NAME}:/app/config
     environment:
-      - ENV_FILE=/app/config/.env
       - PYTHONPATH=/app
-      - BOT_NAME=${BOT_NAME}
-    restart: unless-stopped 
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3" 
