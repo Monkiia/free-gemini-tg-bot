@@ -2,40 +2,105 @@
 
 [English](README.md) | [中文](README_CN.md)
 
-A Telegram group chat bot powered by Google Gemini AI. It can:
-- Randomly reply to group messages (configurable probability)
-- Always respond when mentioned (@)
-- Generate intelligent responses using AI
-- Support running multiple bot instances
+A Telegram group chat bot powered by Google Gemini AI, specialized in cryptocurrency analysis.
+
+## Features
+
+- AI-Powered Chat:
+  - Powered by Google Gemini AI
+  - Context-aware conversations
+  - Group-specific memory
+- Cryptocurrency Tools:
+  - Real-time price queries
+  - Technical indicators (Fear & Greed Index, Rainbow Chart, etc.)
+  - Market sentiment analysis
+- Interaction Modes:
+  - Direct @ mentions
+  - Random response with configurable probability
+- Multi-Instance Support:
+  - Run multiple bots simultaneously
+  - Independent configurations
+
+## Usage Examples
+
+### 1. Cryptocurrency Queries
+```
+User: @mybot btc price
+Bot: Bitcoin Current Price: $65,432.21 USD
+
+User: @mybot analyze btc trend
+Bot: 📊 BITCOIN Technical Analysis Report
+😱 Fear & Greed Index: 75 - Greedy
+🌈 Rainbow Chart: Price in 'Fair Value' zone
+📈 S2F Model: Price below model prediction, possibly undervalued
+📊 MVRV Z-Score: 2.1 - Market valuation moderate
+⛏️ Mining Analysis: Stable miner revenue, hashrate at ATH
+
+User: @mybot eth price
+Bot: Ethereum Current Price: $3,456.78 USD
+```
+
+### 2. Contextual Conversation
+```
+User: @mybot has bitcoin been rising lately?
+Bot: Let me check...
+[Price and analysis information]
+
+User: do you think it's a good time to buy?
+Bot: Based on the previous analysis, the current market conditions...
+[Context-aware analysis and suggestion]
+```
+
+## Upcoming Features (TBD)
+
+1. Data Persistence
+   - Historical data storage
+   - User preferences
+   - Group customization
+
+2. Scheduled Tasks
+   - Daily market summaries
+   - Important indicator alerts
+   - Regular trend analysis
+
+3. Data Visualization
+   - Price trend charts
+   - Technical indicator graphs
+   - Market sentiment dashboard
+
+4. LangChain Tool Extensions
+   - Custom analysis tools
+   - News aggregation
+   - Social sentiment analysis
 
 ## Prerequisites
 
 ### 1. Install Docker
 - Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop)
-- Open Docker Desktop application after installation
+- Launch Docker Desktop after installation
 
 ### 2. Get Telegram Bot Token
 1. Find [@BotFather](https://t.me/BotFather) on Telegram
 2. Send `/newbot` command
-3. Follow instructions to set up your bot
+3. Follow the setup instructions
 4. Save the Bot Token
 
 ### 3. Get Gemini API Key
 1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Login with Google account
+2. Sign in with Google account
 3. Click "Create API Key"
 4. Save the API Key
 
 ## Quick Start
 
 1. Download project files
-2. Open terminal, navigate to project directory
+2. Open terminal in project directory
 3. Add execution permissions:
 ```bash
 chmod +x start.sh manage.sh
 ```
 
-4. Start the bot:
+4. Start bot:
 ```bash
 ./start.sh mybot
 ```
@@ -45,22 +110,22 @@ chmod +x start.sh manage.sh
    - Gemini API Key (from Google AI Studio)
    - Response Probability (0.0-1.0, default 0.3)
 
-6. Add the bot to your Telegram group
+6. Add bot to Telegram group
 
 ## Management Commands
 
-Use `manage.sh` to manage your bot:
+Use `manage.sh` to control the bot:
 ```bash
-./manage.sh <bot_name> <command>
+./manage.sh <bot-name> <command>
 ```
 
 Available commands:
 - `logs`: View running logs
-- `stop`: Stop the bot
-- `start`: Start the bot
-- `restart`: Restart the bot
+- `stop`: Stop bot
+- `start`: Start bot
+- `restart`: Restart bot
 
-Examples:
+Example:
 ```bash
 # View logs
 ./manage.sh mybot logs
@@ -69,9 +134,9 @@ Examples:
 ./manage.sh mybot stop
 ```
 
-## Running Multiple Bots
+## Running Multiple Instances
 
-You can run multiple bot instances simultaneously:
+You can run multiple bot instances:
 ```bash
 # Start first bot
 ./start.sh bot1
@@ -84,40 +149,49 @@ Note: Each bot needs its own Telegram Bot Token
 
 ## Usage Guide
 
-1. Random Replies
-   - Bot replies to group messages based on set probability
-   - Probability of 0.3 means about 30% of messages get replies
-
-2. @ Mentions
-   - Bot always responds when mentioned at start of message
+1. Direct Interaction
+   - @ mention the bot in group
    - Example: `@mybot hello`
 
-3. Customize Bot Personality
-   - Modify `src/bot/prompts.py` to customize bot's reply style
-   - Edit `CHAT_PROMPT` variable to change bot's personality and response style
-   - Examples of possible personalities:
-     - Professional technical advisor
-     - Humorous entertainer
-     - Domain-specific expert
-     - Specific role-play character
+2. Crypto Features
+   - Price check: `@mybot btc price`
+   - Technical analysis: `@mybot analyze btc trend`
+   - Market sentiment: `@mybot btc market analysis`
 
-## Common Issues
+3. Random Responses
+   - Bot responds randomly based on set probability
+   - 0.3 probability means ~30% messages get responses
+
+## Advanced Features
+
+### Context Memory
+- Remembers conversation history
+- Supports multi-turn reasoning
+- Group-specific memory isolation
+
+### LangChain Tool System
+- Modular tool design
+- Easy to extend
+- Custom analysis support
+
+## Troubleshooting
 
 1. Docker Not Running
    - Error: `Docker daemon is not running`
-   - Solution: Open Docker Desktop application
+   - Solution: Start Docker Desktop
 
 2. Bot Not Responding
    - Check logs: `./manage.sh <bot_name> logs`
-   - Verify Bot Token is correct
-   - Confirm bot is added to group
+   - Verify Bot Token
+   - Confirm bot is in group
 
-3. Need to Modify Configuration
+3. Configuration Changes
    - Stop bot: `./manage.sh <bot_name> stop`
    - Restart: `./start.sh <bot_name>`
 
 ## Notes
 
 - Keep API keys secure
-- Each bot instance uses system resources
-- Regularly check logs for normal operation
+- Each instance uses system resources
+- Check logs regularly
+- Technical analysis is for reference only
