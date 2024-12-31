@@ -35,6 +35,11 @@ GEMINI_API_KEY=${gemini_key}
 RESPONSE_PROBABILITY=${probability}
 EOL
 
+export BOT_NAME=${BOT_NAME}
+export TELEGRAM_TOKEN=${telegram_token}
+export GEMINI_API_KEY=${gemini_key}
+export RESPONSE_PROBABILITY=${probability}
+
 # 导出环境变量
 export BOT_NAME
 

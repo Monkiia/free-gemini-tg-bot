@@ -20,7 +20,7 @@ class BaseChain:
         
         # 创建 LLM
         self.llm = ChatGoogleGenerativeAI(
-            model="gemini-2.0-flash-exp",
+            model="gemini-exp-1206",
             temperature=0.3,
             max_tokens=2048,
             google_api_key=Config.GEMINI_API_KEY,
