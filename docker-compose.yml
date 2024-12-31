@@ -6,8 +6,14 @@ services:
     build: .
     volumes:
       - ./config/${BOT_NAME}:/app/config
+      - ./logs/${BOT_NAME}:/app/logs
     environment:
       - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+      - BOT_NAME=${BOT_NAME}
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - RESPONSE_PROBABILITY=${RESPONSE_PROBABILITY}
     restart: unless-stopped
     logging:
       driver: "json-file"

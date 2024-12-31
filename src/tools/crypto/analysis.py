@@ -3,6 +3,7 @@ from langchain.tools import BaseTool
 from langchain.pydantic_v1 import BaseModel, Field
 import aiohttp
 from datetime import datetime, timedelta
+from .constants import CRYPTO_MAP, SUPPORTED_INDICATORS, FULL_ANALYSIS_SUPPORTED
 
 class CryptoAnalysisInput(BaseModel):
     """加密货币技术分析的输入参数"""
@@ -11,7 +12,7 @@ class CryptoAnalysisInput(BaseModel):
     )
     indicators: List[str] = Field(
         default=["all"],
-        description="要分析的指标，可选：fear_greed, rainbow, s2f, pi_cycle, mvrv, mining, all"
+        description=f"要分析的指标，可选：{', '.join(SUPPORTED_INDICATORS)}"
     )
 
 class CryptoAnalysisTool(BaseTool):
@@ -38,14 +39,10 @@ class CryptoAnalysisTool(BaseTool):
 
         # 标准化输入
         crypto_id = crypto_id.lower()
-        crypto_map = {
-            "btc": "bitcoin",
-            "eth": "ethereum",
-        }
-        crypto_id = crypto_map.get(crypto_id, crypto_id)
+        crypto_id = CRYPTO_MAP.get(crypto_id, crypto_id)
 
-        if crypto_id != "bitcoin" and "all" in indicators:
-            # 某些指标只支持比特币
+        # 检查是否支持完整分析
+        if crypto_id not in FULL_ANALYSIS_SUPPORTED and "all" in indicators:
             print(f"警告：{crypto_id} 不支持所有指标，只支持恐惧贪婪指数")
             indicators = ["fear_greed"]
 
@@ -58,7 +55,7 @@ class CryptoAnalysisTool(BaseTool):
                 if fear_greed:
                     analysis_results.append(fear_greed)
 
-            if crypto_id == "bitcoin":
+            if crypto_id in FULL_ANALYSIS_SUPPORTED:
                 # 比特币特有指标
                 if "all" in indicators or "rainbow" in indicators:
                     rainbow = await self._get_rainbow_chart(session)

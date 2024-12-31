@@ -120,18 +120,52 @@ Use `manage.sh` to control the bot:
 ```
 
 Available commands:
-- `logs`: View running logs
+- `logs`: View historical logs
+- `follow-logs`: Real-time log tracking
 - `stop`: Stop bot
 - `start`: Start bot
 - `restart`: Restart bot
 
 Example:
 ```bash
-# View logs
+# View historical logs
 ./manage.sh mybot logs
+
+# Real-time log tracking
+./manage.sh mybot follow-logs
 
 # Stop bot
 ./manage.sh mybot stop
+```
+
+## Logging System
+
+### 1. Log Locations
+- Console output: Real-time status
+- File logs: `logs/<bot-name>/bot.log`
+
+### 2. Log Contents
+- Startup information
+- Conversation records
+- Tool invocations
+- Error messages
+- AI thinking process
+
+### 3. Log Configuration
+- Auto-rotation: New file created after 10MB
+- History retention: Keeps up to 5 historical files
+- Format: timestamp - module - level - message
+
+### 4. Viewing Logs
+```bash
+# View historical logs
+cat logs/mybot/bot.log
+
+# Real-time tracking
+tail -f logs/mybot/bot.log
+
+# Using manage.sh
+./manage.sh mybot follow-logs
 ```
 
 ## Running Multiple Instances

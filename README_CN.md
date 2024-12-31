@@ -16,6 +16,7 @@
   - 根据设定概率随机回复群消息
 - 上下文记忆：记住对话历史，实现连续对话
 - 支持多实例：可同时运行多个机器人
+- 完整日志：详细记录运行状态和错误信息
 
 ## 使用案例
 
@@ -116,18 +117,52 @@ chmod +x start.sh manage.sh
 ```
 
 可用命令：
-- `logs`: 查看运行日志
+- `logs`: 查看历史日志
+- `follow-logs`: 实时跟踪日志
 - `stop`: 停止机器人
 - `start`: 启动机器人
 - `restart`: 重启机器人
 
 示例：
 ```bash
-# 查看日志
+# 查看历史日志
 ./manage.sh mybot logs
+
+# 实时跟踪日志
+./manage.sh mybot follow-logs
 
 # 停止机器人
 ./manage.sh mybot stop
+```
+
+## 日志系统
+
+### 1. 日志位置
+- 控制台输出：实时显示运行状态
+- 文件日志：`logs/<bot名称>/bot.log`
+
+### 2. 日志内容
+- 启动信息
+- 对话记录
+- 工具调用
+- 错误信息
+- AI 思考过程
+
+### 3. 日志配置
+- 自动轮换：超过 10MB 自动创建新文件
+- 保留历史：最多保留 5 个历史文件
+- 日志格式：时间 - 模块 - 级别 - 消息
+
+### 4. 查看日志
+```bash
+# 查看历史日志
+cat logs/mybot/bot.log
+
+# 实时跟踪
+tail -f logs/mybot/bot.log
+
+# 使用 manage.sh
+./manage.sh mybot follow-logs
 ```
 
 ## 运行多个实例

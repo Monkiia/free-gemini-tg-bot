@@ -3,7 +3,7 @@
 # 检查参数
 if [ $# -lt 2 ]; then
     echo "使用方式: ./manage.sh <bot-name> <command>"
-    echo "可用命令: logs, stop, start, restart"
+    echo "可用命令: logs, stop, start, restart, follow-logs"
     exit 1
 fi
 
@@ -14,6 +14,9 @@ export BOT_NAME
 
 case $COMMAND in
     "logs")
+        docker-compose logs
+        ;;
+    "follow-logs")
         docker-compose logs -f
         ;;
     "stop")
@@ -27,7 +30,7 @@ case $COMMAND in
         ;;
     *)
         echo "未知命令: $COMMAND"
-        echo "可用命令: logs, stop, start, restart"
+        echo "可用命令: logs, stop, start, restart, follow-logs"
         exit 1
         ;;
 esac 
